@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arqon Tortish O'yini</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#0f0c29;min-height:100vh;overflow-x:hidden}
+:root{
+  --p1:#3B82F6;--p1l:#DBEAFE;--p1d:#1D4ED8;
+  --p2:#F97316;--p2l:#FFEDD5;--p2d:#C2410C;
+  --gold:#F59E0B;--green:#10B981;--red:#EF4444;
+  --bg:#0f0c29;--card:#1e1b4b;--card2:#2d2a5e;
+  --text:#f1f0ff;--muted:#9CA3AF;
+}
+
+/* ===== SCREENS ===== */
+.screen{display:none;min-height:100vh;padding:16px}
+.screen.active{display:block}
+
+/* ===== MENU ===== */
+#menu-screen{
+  background:linear-gradient(135deg,#0f0c29 0%,#1e1b4b 50%,#24243e 100%);
+}
+.logo-area{text-align:center;padding:24px 0 16px}
+.logo-emoji{font-size:56px;display:block;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.logo-title{font-size:26px;font-weight:900;color:#fff;letter-spacing:-0.5px}
+.logo-sub{font-size:13px;color:#9CA3AF;margin-top:4px}
+
+/* ENGLISH STICKER */
+.eng-sticker{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#1D4ED8,#7C3AED);
+  border-radius:20px;padding:6px 14px;margin:8px auto 0;
+  font-size:12px;font-weight:700;color:#fff;
+  border:2px solid rgba(255,255,255,0.2);
+  box-shadow:0 4px 15px rgba(99,102,241,0.4);
+  cursor:default;
+}
+.eng-sticker span{font-size:18px}
+
+.section-label{font-size:11px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+
+/* Subject grid */
+.subj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+.subj-btn{
+  background:#1e1b4b;border:2px solid #312e81;border-radius:14px;
+  padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s;
+  position:relative;
+}
+.subj-btn:hover,.subj-btn.sel{background:#312e81;border-color:#6366F1;transform:scale(1.03)}
+.subj-btn .sicon{font-size:22px;display:block;margin-bottom:3px}
+.subj-btn .sname{font-size:12px;font-weight:700;color:#C7D2FE}
+.subj-btn .sbadge{
+  position:absolute;top:-6px;right:-6px;background:#10B981;
+  color:#fff;font-size:9px;font-weight:800;border-radius:10px;
+  padding:2px 6px;display:none;
+}
+.subj-btn.has-custom .sbadge{display:block}
+
+/* Difficulty */
+.diff-row{display:flex;gap:8px;margin-bottom:16px}
+.diff-btn{
+  flex:1;padding:9px;border-radius:10px;border:2px solid #312e81;
+  background:#1e1b4b;color:#9CA3AF;font-size:13px;font-weight:700;
+  cursor:pointer;text-align:center;transition:all 0.2s;font-family:'Nunito',sans-serif;
+}
+.diff-btn.active{background:#4F46E5;border-color:#6366F1;color:#fff}
+
+/* Name inputs */
+.names-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.name-box label{font-size:12px;font-weight:700;color:#9CA3AF;display:block;margin-bottom:4px}
+.name-box input{
+  width:100%;background:#1e1b4b;border:2px solid #312e81;border-radius:10px;
+  padding:9px 12px;font-size:14px;font-weight:700;color:#fff;font-family:'Nunito',sans-serif;
+}
+.name-box.p1 input{border-color:var(--p1d);color:#93C5FD}
+.name-box.p2 input{border-color:#9A3412;color:#FDBA74}
+
+/* Buttons */
+.btn-primary{
+  width:100%;background:linear-gradient(135deg,#4F46E5,#7C3AED);
+  color:#fff;border:none;border-radius:14px;padding:14px;
+  font-size:16px;font-weight:800;cursor:pointer;letter-spacing:0.3px;
+  font-family:'Nunito',sans-serif;transition:all 0.2s;
+  box-shadow:0 4px 20px rgba(99,102,241,0.4);
+}
+.btn-primary:active{transform:scale(0.97)}
+.btn-secondary{
+  background:#1e1b4b;color:#C7D2FE;border:2px solid #312e81;
+  border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700;
+  cursor:pointer;font-family:'Nunito',sans-serif;transition:all 0.2s;
+}
+.btn-secondary:hover{background:#312e81}
+
+/* ===== MANAGE SCREEN ===== */
+#manage-screen{background:linear-gradient(135deg,#0f0c29,#1a1a2e)}
+.manage-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-top:8px}
+.back-btn{background:#1e1b4b;border:none;color:#C7D2FE;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:18px}
+.manage-title{font-size:18px;font-weight:800;color:#fff}
+
+.tab-row{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
+.tab-btn{
+  padding:7px 14px;border-radius:20px;border:none;background:#1e1b4b;
+  color:#9CA3AF;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;
+  font-family:'Nunito',sans-serif;transition:all 0.2s;
+}
+.tab-btn.active{background:#4F46E5;color:#fff}
+
+.ai-banner{
+  background:linear-gradient(135deg,#065F46,#1D4ED8);
+  border-radius:14px;padding:12px 14px;margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.ai-banner .ai-icon{font-size:28px}
+.ai-banner .ai-text{flex:1}
+.ai-banner .ai-text p{font-size:13px;color:#A7F3D0;font-weight:700}
+.ai-banner .ai-text small{font-size:11px;color:#6EE7B7}
+.ai-gen-btn{
+  background:#10B981;color:#fff;border:none;border-radius:10px;
+  padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;
+  font-family:'Nunito',sans-serif;white-space:nowrap;
+}
+
+.q-add-form{background:#1e1b4b;border-radius:14px;padding:12px;margin-bottom:12px;border:1px solid #312e81}
+.q-add-form label{font-size:11px;font-weight:700;color:#9CA3AF;display:block;margin-bottom:4px}
+.q-add-form input,.q-add-form select{
+  width:100%;background:#0f0c29;border:1.5px solid #312e81;border-radius:8px;
+  padding:8px 10px;font-size:13px;color:#fff;margin-bottom:8px;
+  font-family:'Nunito',sans-serif;
+}
+.q-add-form input:focus{outline:none;border-color:#6366F1}
+.add-q-btn{
+  background:#4F46E5;color:#fff;border:none;border-radius:10px;
+  padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;
+  font-family:'Nunito',sans-serif;width:100%;
+}
+
+.q-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
+.q-item{
+  background:#0f0c29;border:1px solid #312e81;border-radius:10px;
+  padding:10px;display:flex;align-items:flex-start;gap:8px;
+}
+.q-item .q-body{flex:1}
+.q-item .q-question{font-size:13px;color:#E0E7FF;font-weight:600}
+.q-item .q-answer{font-size:12px;color:#10B981;margin-top:2px}
+.q-item .q-source{font-size:10px;color:#4B5563;margin-top:1px}
+.q-item .del-btn{background:none;border:none;color:#EF4444;font-size:16px;cursor:pointer;padding:0 4px}
+.empty-state{text-align:center;color:#4B5563;font-size:13px;padding:20px}
+
+/* ===== GAME SCREEN ===== */
+#game-screen{
+  background:linear-gradient(180deg,#0f0c29 0%,#1a0a3d 100%);
+  padding:12px;
+}
+
+/* Scoreboard */
+.scoreboard{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:8px;
+  align-items:center;margin-bottom:10px;
+}
+.score-box{background:#1e1b4b;border-radius:14px;padding:10px;text-align:center}
+.score-box.p1{border:2px solid var(--p1d)}
+.score-box.p2{border:2px solid #9A3412}
+.score-box .sc-name{font-size:11px;font-weight:800;color:#9CA3AF;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.score-box .sc-num{font-size:28px;font-weight:900;line-height:1}
+.score-box.p1 .sc-num{color:var(--p1)}
+.score-box.p2 .sc-num{color:var(--p2)}
+.q-info{text-align:center}
+.q-info .q-num{font-size:13px;font-weight:800;color:#C7D2FE}
+.q-info .subj-tag{font-size:10px;color:#6B7280}
+
+/* Rope field */
+.rope-field{
+  background:linear-gradient(135deg,#14532D,#1D4ED8,#78350F);
+  border-radius:16px;padding:10px 12px;margin-bottom:10px;
+  border:2px solid #312e81;position:relative;overflow:hidden;
+}
+.rope-field::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent 0,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px);
+}
+.players-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px;position:relative;z-index:1}
+.player-figure{font-size:32px;transition:transform 0.3s}
+.player-figure.p1{transform-origin:left center}
+.player-figure.p2{transform-origin:right center;transform:scaleX(-1)}
+.rope-wrap{position:relative;z-index:1}
+.rope-track{height:12px;background:rgba(0,0,0,0.4);border-radius:6px;position:relative;overflow:visible}
+.rope-knots{
+  position:absolute;top:50%;left:0;right:0;height:6px;
+  background:repeating-linear-gradient(90deg,#92400E 0,#92400E 8px,#B45309 8px,#B45309 16px);
+  transform:translateY(-50%);border-radius:3px;
+}
+.rope-flag{
+  position:absolute;top:50%;width:0;height:0;
+  transform:translate(-50%,-50%);z-index:2;transition:left 0.5s cubic-bezier(.34,1.56,.64,1);
+}
+.rope-flag::before{
+  content:'🚩';font-size:22px;position:absolute;
+  top:-16px;left:-8px;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+.rope-marks{display:flex;justify-content:space-between;margin-top:4px}
+.rope-marks span{font-size:10px;color:rgba(255,255,255,0.3)}
+
+/* Timer */
+.timer-wrap{margin-bottom:10px}
+.timer-bar{height:8px;background:#1e1b4b;border-radius:4px;overflow:hidden}
+.timer-fill{height:100%;border-radius:4px;transition:width 0.5s linear,background 0.5s}
+.timer-info{display:flex;justify-content:space-between;margin-top:3px}
+.timer-info span{font-size:11px;color:#6B7280}
+
+/* Question */
+.question-card{
+  background:#1e1b4b;border-radius:14px;padding:14px;margin-bottom:10px;
+  border:1.5px solid #312e81;text-align:center;
+}
+.q-fan-label{font-size:11px;color:#6B7280;margin-bottom:4px}
+.q-text{font-size:20px;font-weight:800;color:#fff;line-height:1.3}
+
+/* Answer inputs */
+.answers-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.ans-panel{border-radius:12px;padding:10px;border:2px solid}
+.ans-panel.p1{background:#0D1B3E;border-color:var(--p1d)}
+.ans-panel.p2{background:#431407;border-color:#9A3412}
+.ans-panel label{font-size:11px;font-weight:800;display:block;margin-bottom:5px}
+.ans-panel.p1 label{color:#60A5FA}
+.ans-panel.p2 label{color:#FB923C}
+.ans-panel input{
+  width:100%;background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,255,255,0.1);
+  border-radius:8px;padding:9px;font-size:16px;font-weight:800;text-align:center;
+  color:#fff;font-family:'Nunito',sans-serif;
+}
+.ans-panel.p1 input:focus{outline:none;border-color:var(--p1)}
+.ans-panel.p2 input:focus{outline:none;border-color:var(--p2)}
+.ans-panel input.correct{border-color:#10B981;background:rgba(16,185,129,0.2);color:#6EE7B7}
+.ans-panel input.wrong{border-color:#EF4444;background:rgba(239,68,68,0.1)}
+
+.feedback-msg{
+  text-align:center;font-size:14px;font-weight:700;
+  min-height:22px;color:#A7F3D0;
+  animation:fadeIn 0.3s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== WIN SCREEN ===== */
+#win-screen{
+  background:linear-gradient(135deg,#0f0c29,#1a0a3d);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+}
+.win-card{
+  background:#1e1b4b;border-radius:24px;padding:28px 20px;
+  border:2px solid #4F46E5;max-width:340px;width:100%;
+  box-shadow:0 20px 60px rgba(99,102,241,0.3);
+}
+.confetti-emoji{font-size:50px;display:block;margin-bottom:8px;animation:bounce 1s infinite}
+.win-title{font-size:24px;font-weight:900;color:#fff;margin-bottom:4px}
+.win-sub{font-size:14px;color:#9CA3AF;margin-bottom:16px}
+.win-stats-box{background:#0f0c29;border-radius:14px;padding:12px;margin-bottom:16px}
+.ws-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1e1b4b;font-size:13px}
+.ws-row:last-child{border:none}
+.ws-row .ws-label{color:#6B7280;font-weight:600}
+.ws-row .ws-val{color:#C7D2FE;font-weight:700}
+.ws-row .ws-val.green{color:#10B981}
+.ws-row .ws-val.blue{color:#60A5FA}
+.ws-row .ws-val.orange{color:#FB923C}
+.win-btns{display:flex;gap:8px}
+.win-btns button{flex:1;padding:12px;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;border:none}
+.win-btns .wb-play{background:linear-gradient(135deg,#4F46E5,#7C3AED);color:#fff}
+.win-btns .wb-menu{background:#312e81;color:#C7D2FE}
+
+/* AI loading overlay */
+.ai-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.8);
+  display:flex;align-items:center;justify-content:center;z-index:1000;
+  display:none;
+}
+.ai-overlay.show{display:flex}
+.ai-box{background:#1e1b4b;border-radius:20px;padding:28px;text-align:center;border:2px solid #4F46E5}
+.ai-spinner{font-size:36px;animation:spin 1s linear infinite;display:block;margin-bottom:12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-box p{color:#C7D2FE;font-size:15px;font-weight:700}
+.ai-box small{color:#6B7280;font-size:12px}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#1e1b4b;border:1.5px solid #4F46E5;color:#C7D2FE;
+  padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;
+  z-index:2000;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;
+}
+.toast.show{opacity:1}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#0f0c29}
+::-webkit-scrollbar-thumb{background:#312e81;border-radius:2px}
+
+/* Correct animation */
+@keyframes correctPulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.correct-anim{animation:correctPulse 0.4s ease}
+
+/* ===== KEYBOARDS ===== */
+.keyboards-wrap{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.kbd-panel{border-radius:12px;padding:6px;border:1.5px solid}
+.kbd-panel.k1{background:#0a1428;border-color:#1D4ED8}
+.kbd-panel.k2{background:#1c0a04;border-color:#9A3412}
+.kbd-label{font-size:9px;font-weight:800;text-align:center;margin-bottom:4px;letter-spacing:1px}
+.k1 .kbd-label{color:#60A5FA}
+.k2 .kbd-label{color:#FB923C}
+.kbd-row{display:flex;gap:2px;justify-content:center;margin-bottom:2px}
+.kbtn{
+  flex:1;max-width:22px;height:22px;border-radius:5px;border:none;
+  font-size:9px;font-weight:800;cursor:pointer;
+  font-family:'Nunito',sans-serif;transition:all 0.1s;
+  display:flex;align-items:center;justify-content:center;
+  user-select:none;-webkit-user-select:none;
+}
+.k1 .kbtn{background:#1e3a6e;color:#93C5FD;border-bottom:3px solid #1D4ED8}
+.k2 .kbtn{background:#5c1a08;color:#FDBA74;border-bottom:3px solid #9A3412}
+.k1 .kbtn:active{transform:translateY(2px);border-bottom-width:1px;background:#2d5299}
+.k2 .kbtn:active{transform:translateY(2px);border-bottom-width:1px;background:#7c2410}
+.kbtn.wide{max-width:34px;min-width:34px;font-size:9px}
+.kbtn.del{max-width:28px;min-width:28px;font-size:11px}
+.kbtn.space{flex:3;max-width:999px}
+.k1 .kbtn.action{background:#1D4ED8;color:#fff}
+.k2 .kbtn.action{background:#9A3412;color:#fff}
+</style>
+</head>
+<body>
+
+<!-- ===== MENU ===== -->
+<div id="menu-screen" class="screen active">
+  <div class="logo-area">
+    <span class="logo-emoji">🏆</span>
+    <div class="logo-title">Arqon Tortish</div>
+    <div class="logo-sub">2 o'yinchi — Bilim bellashuvi</div>
+    <div style="text-align:center;margin-top:8px">
+      <div class="eng-sticker"><span>🇺🇸</span> English Included</div>
+    </div>
+  </div>
+
+  <div class="section-label">Fan tanlang</div>
+  <div class="subj-grid" id="subj-grid"></div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <div class="section-label" style="margin-bottom:0">Qiyinlik</div>
+    <button class="btn-secondary" onclick="showManage()" style="font-size:12px;padding:6px 12px">⚙️ Savollarni boshqar</button>
+  </div>
+  <div class="diff-row">
+    <button class="diff-btn active" onclick="setDiff(this,'easy')">🟢 Oson</button>
+    <button class="diff-btn" onclick="setDiff(this,'medium')">🟡 O'rta</button>
+    <button class="diff-btn" onclick="setDiff(this,'hard')">🔴 Qiyin</button>
+  </div>
+
+  <div class="section-label">O'yinchilar</div>
+  <div class="names-row">
+    <div class="name-box p1">
+      <label>🔵 1-o'yinchi</label>
+      <input id="p1name" value="Zumrad" />
+    </div>
+    <div class="name-box p2">
+      <label>🟠 2-o'yinchi</label>
+      <input id="p2name" value="Hasan" />
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="startGame()">O'yinni boshlash 🚀</button>
+</div>
+
+<!-- ===== MANAGE SCREEN ===== -->
+<div id="manage-screen" class="screen">
+  <div class="manage-header">
+    <button class="back-btn" onclick="showMenu()">←</button>
+    <div class="manage-title">📚 Savollarni boshqarish</div>
+  </div>
+
+  <!-- Subject tabs -->
+  <div class="tab-row" id="manage-tabs"></div>
+
+  <!-- AI Banner -->
+  <div class="ai-banner">
+    <div class="ai-icon">🤖</div>
+    <div class="ai-text">
+      <p>AI avtomatik savollar yaratadi</p>
+      <small>Tanlangan fan uchun 5 ta savol qo'shadi</small>
+    </div>
+    <button class="ai-gen-btn" onclick="aiGenerateQuestions()">✨ Yaratish</button>
+  </div>
+
+  <!-- Add question form -->
+  <div class="q-add-form">
+    <label>Savol matni:</label>
+    <input type="text" id="new-q-text" placeholder="Masalan: O'zbekiston poytaxti?" />
+    <label>To'g'ri javob:</label>
+    <input type="text" id="new-q-ans" placeholder="Masalan: Toshkent" />
+    <label>Qiyinlik:</label>
+    <select id="new-q-diff">
+      <option value="easy">🟢 Oson</option>
+      <option value="medium">🟡 O'rta</option>
+      <option value="hard">🔴 Qiyin</option>
+    </select>
+    <button class="add-q-btn" onclick="addCustomQuestion()">➕ Savol qo'shish</button>
+  </div>
+
+  <!-- Add new subject -->
+  <div class="q-add-form" id="new-subj-form" style="margin-top:4px;border-color:#78350F">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span style="font-size:13px;font-weight:800;color:#FB923C">➕ Yangi fan qo'shish</span>
+      <button onclick="toggleSubjForm()" style="background:none;border:none;color:#6B7280;font-size:18px;cursor:pointer" id="subj-form-toggle">▼</button>
+    </div>
+    <div id="subj-form-body" style="display:none">
+      <label>Fan nomi (o'zbek tilida):</label>
+      <input type="text" id="new-subj-name" placeholder="Masalan: Informatika" />
+      <label>Fan belgisi (emoji):</label>
+      <input type="text" id="new-subj-icon" placeholder="Masalan: 💻" maxlength="4" style="font-size:20px;text-align:center" />
+      <button class="add-q-btn" style="background:linear-gradient(135deg,#B45309,#92400E)" onclick="addNewSubject()">🌟 Fan qo'shish</button>
+    </div>
+  </div>
+
+  <!-- Custom subjects list -->
+  <div id="custom-subjs-wrap" style="margin-bottom:10px;display:none">
+    <div class="section-label" style="margin-bottom:6px">Qo'shilgan fanlar</div>
+    <div id="custom-subjs-list" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+  </div>
+
+  <!-- Question list -->
+  <div class="section-label" style="margin-bottom:8px">Savollar ro'yxati</div>
+  <div class="q-list" id="q-list"></div>
+</div>
+
+<!-- ===== GAME SCREEN ===== -->
+<div id="game-screen" class="screen">
+  <div class="scoreboard">
+    <div class="score-box p1">
+      <div class="sc-name" id="gs-p1name">Zumrad</div>
+      <div class="sc-num" id="gs-p1score">0</div>
+    </div>
+    <div class="q-info">
+      <div class="q-num" id="q-counter">1/7</div>
+      <div class="subj-tag" id="gs-subj">Matematika</div>
+    </div>
+    <div class="score-box p2">
+      <div class="sc-name" id="gs-p2name">Hasan</div>
+      <div class="sc-num" id="gs-p2score">0</div>
+    </div>
+  </div>
+
+  <div class="rope-field">
+    <div class="players-row">
+      <div class="player-figure p1" id="fig-p1">🧍</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:700">ARQON TORTISH</div>
+      <div class="player-figure p2" id="fig-p2">🧍</div>
+    </div>
+    <div class="rope-wrap">
+      <div class="rope-track">
+        <div class="rope-knots"></div>
+        <div class="rope-flag" id="rope-flag" style="left:50%"></div>
+      </div>
+      <div class="rope-marks">
+        <span>P1 hudud</span>
+        <span>↔</span>
+        <span>P2 hudud</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="timer-wrap">
+    <div class="timer-bar">
+      <div class="timer-fill" id="timer-fill" style="width:100%;background:#10B981"></div>
+    </div>
+    <div class="timer-info">
+      <span>Vaqt</span>
+      <span id="timer-txt">20s</span>
+    </div>
+  </div>
+
+  <div class="question-card">
+    <div class="q-fan-label" id="q-fan-label">Matematika</div>
+    <div class="q-text" id="q-text">Savol yuklanmoqda...</div>
+  </div>
+
+  <div class="answers-grid">
+    <div class="ans-panel p1">
+      <label id="ans-p1-label">Zumrad javobi</label>
+      <input type="text" id="p1-ans" placeholder="Yozing..." oninput="checkAns(1)" readonly />
+    </div>
+    <div class="ans-panel p2">
+      <label id="ans-p2-label">Hasan javobi</label>
+      <input type="text" id="p2-ans" placeholder="Yozing..." oninput="checkAns(2)" readonly />
+    </div>
+  </div>
+  <div class="feedback-msg" id="feedback"></div>
+
+  <!-- Keyboards -->
+  <div class="keyboards-wrap" id="keyboards-wrap">
+    <div class="kbd-panel k1" id="kbd1">
+      <div class="kbd-label" id="kbd1-label">🔵 ZUMRAD</div>
+      <div id="kbd1-rows"></div>
+    </div>
+    <div class="kbd-panel k2" id="kbd2">
+      <div class="kbd-label" id="kbd2-label">🟠 HASAN</div>
+      <div id="kbd2-rows"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WIN SCREEN ===== -->
+<div id="win-screen" class="screen">
+  <div class="win-card">
+    <span class="confetti-emoji" id="win-emoji">🏆</span>
+    <div class="win-title" id="win-name">Hasan</div>
+    <div class="win-sub" id="win-sub">G'olib bo'ldi!</div>
+    <div class="win-stats-box" id="win-stats"></div>
+    <div class="win-btns">
+      <button class="wb-play" onclick="restartGame()">🔄 Qayta</button>
+      <button class="wb-menu" onclick="showMenu()">🏠 Menyu</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI Loading Overlay -->
+<div class="ai-overlay" id="ai-overlay">
+  <div class="ai-box">
+    <span class="ai-spinner">🤖</span>
+    <p>AI savollar yaratmoqda...</p>
+    <small id="ai-status">Iltimos kuting</small>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== DATA =====
+const SUBJECTS = [
+  {id:'math',name:'Matematika',icon:'➕'},
+  {id:'uz',name:'Ona tili',icon:'📝'},
+  {id:'geo',name:'Geografiya',icon:'🌍'},
+  {id:'bio',name:'Biologiya',icon:'🌿'},
+  {id:'hist',name:'Tarix',icon:'📜'},
+  {id:'eng',name:'English',icon:'🇺🇸'},
+  {id:'phys',name:'Fizika',icon:'⚡'},
+  {id:'chem',name:'Kimyo',icon:'🧪'},
+];
+
+// Built-in questions
+const BUILTIN = {
+  math:{
+    easy:[
+      {q:'15 + 27 = ?',a:'42'},{q:'56 - 23 = ?',a:'33'},{q:'8 × 6 = ?',a:'48'},
+      {q:'36 ÷ 4 = ?',a:'9'},{q:'19 + 34 = ?',a:'53'},{q:'72 - 45 = ?',a:'27'},
+      {q:'7 × 9 = ?',a:'63'},{q:'100 - 37 = ?',a:'63'},{q:'14 + 58 = ?',a:'72'},
+      {q:'25 × 4 = ?',a:'100'},{q:'81 ÷ 9 = ?',a:'9'},{q:'66 + 15 = ?',a:'81'},
+    ],
+    medium:[
+      {q:'125 + 238 = ?',a:'363'},{q:'12 × 15 = ?',a:'180'},{q:'256 ÷ 8 = ?',a:'32'},
+      {q:'√144 = ?',a:'12'},{q:'17² = ?',a:'289'},{q:'3/4 + 1/4 = ?',a:'1'},
+      {q:'45% of 80 = ?',a:'36'},{q:'LCM(6,9) = ?',a:'18'},
+    ],
+    hard:[
+      {q:'√225 = ?',a:'15'},{q:'13 × 17 = ?',a:'221'},{q:'2³ + 3² = ?',a:'17'},
+      {q:'LCM(12,18) = ?',a:'36'},{q:'GCD(48,36) = ?',a:'12'},{q:'5! = ?',a:'120'},
+    ]
+  },
+  uz:{
+    easy:[
+      {q:'"Kitob" so\'zining ko\'pligi?',a:'kitoblar'},{q:'"Bola" ko\'pligi?',a:'bolalar'},
+      {q:'O\'zbek alfabetida nechta harf?',a:'29'},{q:'"Uy" qaysi so\'z turkumi?',a:'ot'},
+      {q:'"Yaxshi" qaysi so\'z turkumi?',a:'sifat'},{q:'"Yugurmoq" — qaysi turkum?',a:'fe\'l'},
+      {q:'"Qalam" — nechi bo\'g\'in?',a:'2'},
+    ],
+    medium:[
+      {q:'Fe\'lning necha zamon shakli bor?',a:'3'},{q:'"Bahor" so\'zining antonimi?',a:'kuz'},
+      {q:'"Quvnoq" so\'zining sinonimi?',a:'shod'},{q:'O\'zbek tilida necha kelishik?',a:'6'},
+    ],
+    hard:[
+      {q:'O\'zbek alfabeti necha yilda qabul qilindi?',a:'1995'},
+      {q:'"Ona tili" kimning asari?',a:'abdulla qodiriy'},
+    ]
+  },
+  geo:{
+    easy:[
+      {q:"O'zbekiston poytaxti?",a:'toshkent'},{q:"Nil daryosi qaysi qit'ada?",a:'afrika'},
+      {q:"Dunyo qit'alari soni?",a:'6'},{q:"Janubiy Amerika eng katta davlati?",a:'braziliya'},
+      {q:"O'zbekistondagi eng uzun daryo?",a:'amudaryo'},{q:"Tinch okean qaysi tomonda?",a:'sharq'},
+    ],
+    medium:[
+      {q:"O'zbekistonning viloyatlari soni?",a:'13'},{q:"Dunyo okeanlarining soni?",a:'4'},
+      {q:"Farg'ona vodiysi qaysi tog' oralig'ida?",a:'tyanshan'},
+    ],
+    hard:[
+      {q:"O'zbekiston maydoni (ming km²)?",a:'449'},{q:"Dunyo aholisi (mlrd, taxm.)?",a:'8'},
+    ]
+  },
+  bio:{
+    easy:[
+      {q:'Fotosintez qaerda boradi?',a:'xloroplast'},{q:'Inson tanasida necha suyak?',a:'206'},
+      {q:'Qaysi organ qon tozalaydi?',a:'buyrak'},{q:'Inson yuragida nechi qorincha?',a:'2'},
+      {q:'Quyoshdan qaysi vitamin olinadi?',a:'d'},
+    ],
+    medium:[
+      {q:'Hujayraning energiya markazi?',a:'mitoxondriya'},{q:'Oq qon hujayralari nomi?',a:'leykosit'},
+      {q:'Qizil qon hujayralari nomi?',a:'eritrosit'},
+    ],
+    hard:[
+      {q:'ATP nimaning qisqartmasi?',a:'adenozintrifosfat'},{q:'Mendel tajribasida nima ishlatdi?',a:'no\'xat'},
+    ]
+  },
+  hist:{
+    easy:[
+      {q:"Amir Temur poytaxti?",a:'samarqand'},{q:"O'zbekiston mustaqilligini qachon oldi?",a:'1991'},
+      {q:"Ibn Sino qaysi sohada mashhur?",a:'tibbiyot'},{q:"Buyuk ipak yo'li nima bilan mashhur?",a:'savdo'},
+    ],
+    medium:[
+      {q:"Temuriylar sulolasi qachon tashkil topdi?",a:'1370'},{q:"Navoiy qaysi asrda yashagan?",a:'15'},
+      {q:"Xiva xonligi qachon tugatildi?",a:'1920'},
+    ],
+    hard:[
+      {q:"Movarounnahr — nima ma'nosi?",a:'daryoorti'},{q:"Al-Xorazmiy qaysi sohada mashhur?",a:'algebra'},
+    ]
+  },
+  eng:{
+    easy:[
+      {q:"'Kitob' in English?",a:'book'},{q:"'Uy' in English?",a:'house'},
+      {q:"'Salom' in English?",a:'hello'},{q:"'Ota' in English?",a:'father'},
+      {q:"'Ona' in English?",a:'mother'},{q:"'Maktab' in English?",a:'school'},
+      {q:"'Suv' in English?",a:'water'},{q:"'Kun' in English?",a:'day'},
+      {q:"'Kecha' in English?",a:'yesterday'},{q:"'Ertaga' in English?",a:'tomorrow'},
+    ],
+    medium:[
+      {q:"'Go' past tense?",a:'went'},{q:"'Happy' antonimi?",a:'sad'},
+      {q:"'Big' comparative?",a:'bigger'},{q:"'She ___ (play) tennis every day'",a:'plays'},
+      {q:"'I ___ (be) a student' present?",a:'am'},{q:"Plural of 'child'?",a:'children'},
+    ],
+    hard:[
+      {q:"Plural of 'phenomenon'?",a:'phenomena'},{q:"'Since' vs 'for' — qaysi davom etgan vaqt uchun?",a:'for'},
+      {q:"Past participle of 'write'?",a:'written'},{q:"'I have been' — qaysi zamon?",a:'present perfect'},
+    ]
+  },
+  phys:{
+    easy:[
+      {q:"Yorug'lik tezligi (km/s)?",a:'300000'},{q:"Yer tortishish kuchi (m/s²)?",a:'10'},
+      {q:"1 km = ? metr",a:'1000'},{q:"Suv qaynash harorati (°C)?",a:'100'},
+      {q:"Ohm qonuni: V = I × ?",a:'r'},
+    ],
+    medium:[
+      {q:"Energiya birligi?",a:'joul'},{q:"Kuch birligi?",a:'nyuton'},
+      {q:"P = U × ?",a:'i'},{q:"1 kVt = ? Vt",a:'1000'},
+    ],
+    hard:[
+      {q:"Einstein formulasi: E = ?",a:'mc2'},{q:"Yorug'lik vakuumda tezligi (m/s)?",a:'299792458'},
+    ]
+  },
+  chem:{
+    easy:[
+      {q:"Suv formulasi?",a:'h2o'},{q:"Kislorod tartib raqami?",a:'8'},
+      {q:"CO₂ nima?",a:'karbonat angidrid'},{q:"NaCl nima?",a:'osh tuzi'},
+      {q:"Oltin belgisi?",a:'au'},{q:"Temir belgisi?",a:'fe'},
+    ],
+    medium:[
+      {q:"H₂SO₄ nomi?",a:'sulfat kislota'},{q:"HCl nomi?",a:'xlorid kislota'},
+      {q:"Kislota + ishqor = ?",a:'tuz va suv'},{q:"Vodorod atom massasi?",a:'1'},
+    ],
+    hard:[
+      {q:"Davriy jadvalda elementlar soni?",a:'118'},{q:"Avogadro soni (taxm.)?",a:'6.022×10²³'},
+    ]
+  }
+};
+
+// Storage
+let customQuestions = JSON.parse(localStorage.getItem('aq_custom') || '{}');
+let customSubjects = JSON.parse(localStorage.getItem('aq_subjects') || '[]');
+function saveCustom(){localStorage.setItem('aq_custom',JSON.stringify(customQuestions))}
+function saveSubjects(){localStorage.setItem('aq_subjects',JSON.stringify(customSubjects))}
+
+function getAllSubjects(){ return [...SUBJECTS, ...customSubjects]; }
+
+function getAllQuestions(subjectId, diff){
+  const builtin = (BUILTIN[subjectId]||{})[diff]||[];
+  const custom = (customQuestions[subjectId]||{})[diff]||[];
+  return [...builtin,...custom];
+}
+
+// ===== STATE =====
+let selSubject='math', selDiff='easy';
+let p1n='',p2n='';
+let p1s=0,p2s=0,flagPos=50;
+let gameQs=[],qIdx=0;
+let timerInt=null,timeLeft=20;
+let answered=false;
+let p1correct=0,p2correct=0;
+const TOTAL_Q=7, TIMER_S=20;
+let manageSubject='math';
+
+// ===== INIT =====
+buildSubjectGrid();
+
+function buildSubjectGrid(){
+  const g=document.getElementById('subj-grid');
+  g.innerHTML='';
+  getAllSubjects().forEach(s=>{
+    const hasCustom=customQuestions[s.id]&&Object.values(customQuestions[s.id]).flat().length>0;
+    const btn=document.createElement('div');
+    btn.className='subj-btn'+(s.id===selSubject?' sel':'')+(hasCustom?' has-custom':'');
+    btn.innerHTML=`<span class="sicon">${s.icon}</span><span class="sname">${s.name}</span><span class="sbadge">+uzim</span>`;
+    btn.onclick=()=>{selSubject=s.id;buildSubjectGrid()};
+    g.appendChild(btn);
+  });
+}
+
+function setDiff(el,d){
+  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  selDiff=d;
+}
+
+// ===== MANAGE =====
+function showManage(){
+  show('manage-screen');
+  buildManageTabs();
+  renderQList();
+  renderCustomSubjList();
+}
+
+function buildManageTabs(){
+  const c=document.getElementById('manage-tabs');
+  c.innerHTML='';
+  getAllSubjects().forEach(s=>{
+    const b=document.createElement('button');
+    b.className='tab-btn'+(s.id===manageSubject?' active':'');
+    b.textContent=s.icon+' '+s.name;
+    b.onclick=()=>{manageSubject=s.id;buildManageTabs();renderQList()};
+    c.appendChild(b);
+  });
+  renderCustomSubjList();
+}
+
+function renderQList(){
+  const c=document.getElementById('q-list');
+  const subj=manageSubject;
+  const builtinAll=Object.entries(BUILTIN[subj]||{}).flatMap(([d,qs])=>qs.map(q=>({...q,diff:d,source:'builtin'})));
+  const customAll=Object.entries((customQuestions[subj]||{})).flatMap(([d,qs])=>qs.map((q,i)=>({...q,diff:d,source:'custom',idx:i})));
+  const all=[...builtinAll,...customAll];
+  if(!all.length){c.innerHTML='<div class="empty-state">Hozircha savollar yo\'q</div>';return}
+  c.innerHTML='';
+  all.forEach((q,i)=>{
+    const item=document.createElement('div');
+    item.className='q-item';
+    const diffLabel={easy:'🟢',medium:'🟡',hard:'🔴'}[q.diff]||'';
+    item.innerHTML=`
+      <div class="q-body">
+        <div class="q-question">${diffLabel} ${q.q}</div>
+        <div class="q-answer">✓ ${q.a}</div>
+        <div class="q-source">${q.source==='custom'?'👤 Siz qo\'shgansiz':'🏫 Standart'}</div>
+      </div>
+      ${q.source==='custom'?`<button class="del-btn" onclick="deleteCustomQ('${subj}','${q.diff}',${q.idx})">🗑</button>`:''}
+    `;
+    c.appendChild(item);
+  });
+}
+
+function addCustomQuestion(){
+  const qText=document.getElementById('new-q-text').value.trim();
+  const aText=document.getElementById('new-q-ans').value.trim();
+  const diff=document.getElementById('new-q-diff').value;
+  if(!qText||!aText){showToast('Savol va javobni kiriting!');return}
+  if(!customQuestions[manageSubject])customQuestions[manageSubject]={};
+  if(!customQuestions[manageSubject][diff])customQuestions[manageSubject][diff]=[];
+  customQuestions[manageSubject][diff].push({q:qText,a:aText.toLowerCase()});
+  saveCustom();
+  document.getElementById('new-q-text').value='';
+  document.getElementById('new-q-ans').value='';
+  renderQList();
+  buildSubjectGrid();
+  showToast('✅ Savol qo\'shildi!');
+}
+
+function deleteCustomQ(subj,diff,idx){
+  customQuestions[subj][diff].splice(idx,1);
+  saveCustom();
+  renderQList();
+  buildSubjectGrid();
+  showToast('🗑 O\'chirildi');
+}
+
+// ===== AI GENERATE =====
+async function aiGenerateQuestions(){
+  const subj=SUBJECTS.find(s=>s.id===manageSubject);
+  document.getElementById('ai-overlay').classList.add('show');
+  document.getElementById('ai-status').textContent=subj.name+' uchun savollar yaratilmoqda...';
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{
+          role:'user',
+          content:`${subj.name} fanidan o'zbek tilida 5 ta savol-javob yarat. Har xil qiyinlikda (oson, o'rta, qiyin). JSON formatida qaytargin, boshqa hech narsa yozma:\n[{"q":"savol?","a":"javob","diff":"easy"},...]`
+        }]
+      })
+    });
+    const data=await resp.json();
+    const text=data.content.map(c=>c.text||'').join('');
+    const cleaned=text.replace(/```json|```/g,'').trim();
+    const questions=JSON.parse(cleaned);
+    if(!customQuestions[manageSubject])customQuestions[manageSubject]={};
+    questions.forEach(item=>{
+      const d=item.diff||'medium';
+      if(!customQuestions[manageSubject][d])customQuestions[manageSubject][d]=[];
+      customQuestions[manageSubject][d].push({q:item.q,a:(item.a||'').toLowerCase()});
+    });
+    saveCustom();
+    renderQList();
+    buildSubjectGrid();
+    showToast('🤖 '+questions.length+' ta savol qo\'shildi!');
+  }catch(e){
+    showToast('⚠️ Xatolik yuz berdi: '+e.message);
+  }finally{
+    document.getElementById('ai-overlay').classList.remove('show');
+  }
+}
+
+// ===== GAME =====
+function startGame(){
+  p1n=document.getElementById('p1name').value||'O\'yinchi 1';
+  p2n=document.getElementById('p2name').value||'O\'yinchi 2';
+  p1s=0;p2s=0;flagPos=50;qIdx=0;p1correct=0;p2correct=0;
+  const pool=getAllQuestions(selSubject,selDiff);
+  if(pool.length<3){showToast('⚠️ Kamida 3 ta savol kerak!');return}
+  gameQs=shuffle(pool).slice(0,TOTAL_Q);
+  const subj=SUBJECTS.find(s=>s.id===selSubject);
+  document.getElementById('gs-p1name').textContent=p1n;
+  document.getElementById('gs-p2name').textContent=p2n;
+  document.getElementById('gs-subj').textContent=subj.icon+' '+subj.name;
+  document.getElementById('q-fan-label').textContent=subj.icon+' '+subj.name;
+  document.getElementById('ans-p1-label').textContent=p1n;
+  document.getElementById('ans-p2-label').textContent=p2n;
+  updateScoreUI();
+  updateFlag();
+  show('game-screen');
+  initKeyboards();
+  document.getElementById('kbd1-label').textContent = '🔵 ' + p1n.toUpperCase();
+  document.getElementById('kbd2-label').textContent = '🟠 ' + p2n.toUpperCase();
+  loadQ();
+}
+
+function loadQ(){
+  if(qIdx>=gameQs.length){endGame();return}
+  answered=false;
+  const q=gameQs[qIdx];
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('q-counter').textContent=(qIdx+1)+'/'+Math.min(TOTAL_Q,gameQs.length);
+  document.getElementById('p1-ans').value='';
+  document.getElementById('p2-ans').value='';
+  document.getElementById('p1-ans').disabled=false;
+  document.getElementById('p2-ans').disabled=false;
+  document.getElementById('p1-ans').className='';
+  document.getElementById('p2-ans').className='';
+  document.getElementById('feedback').textContent='';
+  const kb1=document.getElementById('kbd1');const kb2=document.getElementById('kbd2');
+  if(kb1){kb1.style.opacity='1';kb2.style.opacity='1';}
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerInt);
+  timeLeft=TIMER_S;
+  updateTimerUI();
+  timerInt=setInterval(()=>{
+    timeLeft--;
+    updateTimerUI();
+    if(timeLeft<=0){clearInterval(timerInt);skipQ()}
+  },1000);
+}
+
+function updateTimerUI(){
+  const pct=timeLeft/TIMER_S;
+  document.getElementById('timer-fill').style.width=(pct*100)+'%';
+  document.getElementById('timer-txt').textContent=timeLeft+'s';
+  const color=pct>0.5?'#10B981':pct>0.25?'#F59E0B':'#EF4444';
+  document.getElementById('timer-fill').style.background=color;
+}
+
+function checkAns(player){
+  if(answered)return;
+  const inp=document.getElementById('p'+player+'-ans');
+  const val=inp.value.trim().toLowerCase();
+  const correct=(gameQs[qIdx].a||'').toLowerCase();
+  if(val===correct){
+    answered=true;
+    clearInterval(timerInt);
+    document.getElementById('p1-ans').disabled=true;
+    document.getElementById('p2-ans').disabled=true;
+    inp.classList.add('correct');
+    const other=document.getElementById('p'+(player===1?2:1)+'-ans');
+    if(player===1){
+      p1s++;p1correct++;
+      flagPos=Math.max(5,flagPos-14);
+      document.getElementById('feedback').style.color='#60A5FA';
+      document.getElementById('feedback').textContent='🎉 '+p1n+' to\'g\'ri javob berdi!';
+      document.getElementById('fig-p1').style.transform='scale(1.3)';
+      setTimeout(()=>document.getElementById('fig-p1').style.transform='',600);
+      document.getElementById('kbd1').style.opacity='1';
+      document.getElementById('kbd2').style.opacity='0.3';
+    }else{
+      p2s++;p2correct++;
+      flagPos=Math.min(95,flagPos+14);
+      document.getElementById('feedback').style.color='#FB923C';
+      document.getElementById('feedback').textContent='🎉 '+p2n+' to\'g\'ri javob berdi!';
+      document.getElementById('fig-p2').style.transform='scaleX(-1) scale(1.3)';
+      setTimeout(()=>document.getElementById('fig-p2').style.transform='scaleX(-1)',600);
+      document.getElementById('kbd2').style.opacity='1';
+      document.getElementById('kbd1').style.opacity='0.3';
+    }
+    updateScoreUI();
+    updateFlag();
+    setTimeout(()=>{qIdx++;loadQ()},1300);
+  }
+}
+
+function skipQ(){
+  const correct=gameQs[qIdx].a;
+  document.getElementById('feedback').style.color='#6B7280';
+  document.getElementById('feedback').textContent='⏰ Vaqt tugadi! Javob: '+correct;
+  document.getElementById('p1-ans').disabled=true;
+  document.getElementById('p2-ans').disabled=true;
+  setTimeout(()=>{qIdx++;loadQ()},1400);
+}
+
+function updateScoreUI(){
+  document.getElementById('gs-p1score').textContent=p1s;
+  document.getElementById('gs-p2score').textContent=p2s;
+}
+
+function updateFlag(){
+  document.getElementById('rope-flag').style.left=flagPos+'%';
+}
+
+function endGame(){
+  clearInterval(timerInt);
+  let winner,emoji,subMsg;
+  if(p1s>p2s){winner=p1n;emoji='🏆';subMsg='G\'olib bo\'ldi!'}
+  else if(p2s>p1s){winner=p2n;emoji='🏆';subMsg='G\'olib bo\'ldi!'}
+  else{winner='Durrang!';emoji='🤝';subMsg='Ikkalasi teng!'}
+  document.getElementById('win-emoji').textContent=emoji;
+  document.getElementById('win-name').textContent=winner;
+  document.getElementById('win-sub').textContent=subMsg;
+  const subj=SUBJECTS.find(s=>s.id===selSubject);
+  document.getElementById('win-stats').innerHTML=`
+    <div class="ws-row"><span class="ws-label">🔵 ${p1n}</span><span class="ws-val blue">${p1s} to'g'ri</span></div>
+    <div class="ws-row"><span class="ws-label">🟠 ${p2n}</span><span class="ws-val orange">${p2s} to'g'ri</span></div>
+    <div class="ws-row"><span class="ws-label">📚 Fan</span><span class="ws-val">${subj.icon} ${subj.name}</span></div>
+    <div class="ws-row"><span class="ws-label">📊 Savollar</span><span class="ws-val">${Math.min(TOTAL_Q,gameQs.length)} ta</span></div>
+    <div class="ws-row"><span class="ws-label">⏱ Qiyinlik</span><span class="ws-val green">${{easy:'Oson',medium:"O'rta",hard:'Qiyin'}[selDiff]}</span></div>
+  `;
+  show('win-screen');
+}
+
+function restartGame(){startGame()}
+
+function toggleSubjForm(){
+  const body=document.getElementById('subj-form-body');
+  const tog=document.getElementById('subj-form-toggle');
+  const hidden=body.style.display==='none';
+  body.style.display=hidden?'block':'none';
+  tog.textContent=hidden?'▲':'▼';
+}
+
+function addNewSubject(){
+  const name=document.getElementById('new-subj-name').value.trim();
+  const icon=document.getElementById('new-subj-icon').value.trim()||'📖';
+  if(!name){showToast('Fan nomini kiriting!');return}
+  const id='custom_'+Date.now();
+  customSubjects.push({id,name,icon});
+  saveSubjects();
+  manageSubject=id;
+  document.getElementById('new-subj-name').value='';
+  document.getElementById('new-subj-icon').value='';
+  document.getElementById('subj-form-body').style.display='none';
+  document.getElementById('subj-form-toggle').textContent='▼';
+  buildManageTabs();
+  renderQList();
+  buildSubjectGrid();
+  showToast('🌟 "'+name+'" fani qo\'shildi!');
+}
+
+function deleteCustomSubject(id){
+  customSubjects=customSubjects.filter(s=>s.id!==id);
+  if(customQuestions[id])delete customQuestions[id];
+  saveSubjects();saveCustom();
+  if(manageSubject===id)manageSubject='math';
+  buildManageTabs();renderQList();buildSubjectGrid();
+  showToast('🗑 Fan o\'chirildi');
+}
+
+function renderCustomSubjList(){
+  const wrap=document.getElementById('custom-subjs-wrap');
+  const list=document.getElementById('custom-subjs-list');
+  if(!customSubjects.length){wrap.style.display='none';return}
+  wrap.style.display='block';
+  list.innerHTML='';
+  customSubjects.forEach(s=>{
+    const pill=document.createElement('div');
+    pill.style.cssText='display:inline-flex;align-items:center;gap:6px;background:#1e1b4b;border:1.5px solid #78350F;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:700;color:#FCD34D';
+    pill.innerHTML=`${s.icon} ${s.name} <button onclick="deleteCustomSubject('${s.id}')" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:14px;padding:0;line-height:1">✕</button>`;
+    list.appendChild(pill);
+  });
+}
+
+function showMenu(){show('menu-screen');buildSubjectGrid()}
+
+
+// ===== KEYBOARD =====
+const KBD_ROWS = [
+  ['1','2','3','4','5','6','7','8','9','0'],
+  ['q','w','e','r','t','y','u','i','o','p'],
+  ['a','s','d','f','g','h','j','k','l'],
+  ['z','x','c','v','b','n','m'],
+];
+
+function buildKeyboard(panelId, player) {
+  const wrap = document.getElementById(panelId+'-rows');
+  wrap.innerHTML = '';
+  KBD_ROWS.forEach((row, ri) => {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'kbd-row';
+    row.forEach(k => {
+      const btn = document.createElement('button');
+      btn.className = 'kbtn';
+      btn.textContent = k;
+      btn.onpointerdown = (e) => { e.preventDefault(); kbdType(player, k); };
+      rowDiv.appendChild(btn);
+    });
+    // Extra keys on last row
+    if (ri === KBD_ROWS.length - 1) {
+      const spBtn = document.createElement('button');
+      spBtn.className = 'kbtn space';
+      spBtn.textContent = '________';
+      spBtn.onpointerdown = (e) => { e.preventDefault(); kbdType(player, ' '); };
+      const delBtn = document.createElement('button');
+      delBtn.className = 'kbtn del action';
+      delBtn.textContent = '⌫';
+      delBtn.onpointerdown = (e) => { e.preventDefault(); kbdDel(player); };
+      rowDiv.appendChild(spBtn);
+      rowDiv.appendChild(delBtn);
+    }
+    wrap.appendChild(rowDiv);
+  });
+  // Number + special row already at top; add OK button row
+  const okRow = document.createElement('div');
+  okRow.className = 'kbd-row';
+  const okBtn = document.createElement('button');
+  okBtn.className = 'kbtn space action';
+  okBtn.style.height = '20px';
+  okBtn.style.fontSize = '10px';
+  okBtn.textContent = '✓ OK';
+  okBtn.onpointerdown = (e) => { e.preventDefault(); kbdOk(player); };
+  okRow.appendChild(okBtn);
+  wrap.appendChild(okRow);
+}
+
+function kbdType(player, char) {
+  if (answered) return;
+  const inp = document.getElementById('p'+player+'-ans');
+  if (inp.disabled) return;
+  inp.value += char;
+  checkAns(player);
+}
+
+function kbdDel(player) {
+  if (answered) return;
+  const inp = document.getElementById('p'+player+'-ans');
+  if (inp.disabled) return;
+  inp.value = inp.value.slice(0, -1);
+}
+
+function kbdOk(player) {
+  // force check even if not matching — just triggers checkAns
+  // already handled live, OK just gives tactile confirm
+  checkAns(player);
+}
+
+function initKeyboards() {
+  buildKeyboard('kbd1', 1);
+  buildKeyboard('kbd2', 2);
+}
+
+// ===== HELPERS =====
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5)}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+</script>
+</body>
+</html>
